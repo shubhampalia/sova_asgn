@@ -1,0 +1,9 @@
+{
+  "name": "@sovahealth/authentication-api-client",
+  "version": "0.0.1",
+  "description": "Authentication Client",
+  "main": "index.js",
+  "author": "Rahul Tiwari (rahul@sova.health)",
+  "license": "MIT",
+  "private": true
+}

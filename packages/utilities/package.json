@@ -1,0 +1,9 @@
+{
+  "name": "@sovahealth/utilities",
+  "version": "0.0.1",
+  "description": "Utilities and Helpers",
+  "main": "index.js",
+  "author": "Rahul Tiwari (rahul@sova.health)",
+  "license": "MIT",
+  "private": true
+}
