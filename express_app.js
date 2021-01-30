@@ -12,9 +12,11 @@ app.post('/', (req, res)=> {
        var filename = file.name
        console.log(filename)
        const xlsx = require('xlsx')
-       var wb = xlsx.readFile('Book1.xlsx')
+       
+       var wb = xlsx.readFile(filename)
        var ws = wb.Sheets["Sheet1"]
        var data = xlsx.utils.sheet_to_json(ws)
+       
        console.log(data)
                   
        file.mv('./uploads/' + filename, function(err){
@@ -26,4 +28,4 @@ app.post('/', (req, res)=> {
        })
     }
 })
-app.listen(5001)
+app.listen(8000)
