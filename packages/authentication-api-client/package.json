@@ -2,28 +2,31 @@
   "name": "@sovahealth/authentication-api-client",
   "version": "0.0.1",
   "description": "Authentication Client",
-  "main": "index.js",
   "author": "Rahul Tiwari (rahul@sova.health)",
   "license": "MIT",
   "private": true,
+  "main": "dist/index",
+  "types": "dist/index",
   "scripts": {
-    "build-ts": "tsc",
+    "compile": "tsc -p tsconfig.build.json",
+    "clean": "rm -rf ./dist",
     "watch-ts": "tsc -w",
     "server": "nodemon -r dotenv/config src/server --watch"
   },
   "devDependencies": {
     "@hapi/hapi": "18.4",
     "install": "^0.13.0",
-    "npm": "^6.14.11"
+    "npm": "^6.14.11",
+    "typescript": "^4.1.3"
   },
   "dependencies": {
+    "@sovahealth/utilities": "^0.0.1",
     "amazon-cognito-identity-js": "^4.5.7",
     "dotenv": "^8.2.0",
     "dotenv-expand": "^5.1.0",
     "esm": "^3.2.25",
     "jsonwebtoken": "^8.5.1",
     "nodemon": "^2.0.7",
-    "qs": "^6.9.6",
-    "typescript": "^4.1.3"
+    "qs": "^6.9.6"
   }
 }

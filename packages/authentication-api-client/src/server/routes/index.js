@@ -5,7 +5,7 @@ import {
   resetPasswordService,
 } from "../services";
 
-import { dbInsert } from "../../../../utilities/database/insert-query";
+import { dbInsert } from "../../../../utilities/src/database/insert-query";
 
 export const routes = (server) => {
   server.route({

@@ -1,14 +1,14 @@
 import { CognitoUser } from "amazon-cognito-identity-js";
-import { AWSCognitoConnector } from "../../../../utilities/connectors";
+import { AWSCognitoConnector } from "../../../../utilities/src/connectors";
 
 import {
   sanitizeEmail,
   sanitizeOTP,
-} from "../../../../utilities/helpers/sanitize-payload-helper";
+} from "../../../../utilities/src/helpers/sanitize-payload-helper";
 import {
   isValidEmail,
   isValidPassword,
-} from "../../../../utilities/helpers/validate-payload-helper";
+} from "../../../../utilities/src/helpers/validate-payload-helper";
 
 export const resetPasswordService = async (request, h) => {
   const resetPasswordPromise = new Promise((resolve) => {
@@ -78,28 +78,28 @@ export const resetPasswordService = async (request, h) => {
         onFailure: (resetPasswordError) => {
           console.log("COGNITO_RESET_PASSWORD_ERROR", resetPasswordError);
           switch (resetPasswordError.code) {
-            case InvalidParameterException: {
+            case "InvalidParameterException": {
               resolve({
                 error: "RESET_PASSWORD_SERVICE_INVALID_PAYLOAD_ERROR",
                 payload: {},
               });
               break;
             }
-            case CodeMismatchException: {
+            case "CodeMismatchException": {
               resolve({
                 error: "RESET_PASSWORD_SERVICE_INCORRECT_OTP_ERROR",
                 payload: {},
               });
               break;
             }
-            case ExpiredCodeException: {
+            case "ExpiredCodeException": {
               resolve({
                 error: "RESET_PASSWORD_SERVICE_EXPIRED_OTP_ERROR",
                 payload: {},
               });
               break;
             }
-            case LimitExceededException: {
+            case "LimitExceededException": {
               resolve({
                 error: "RESET_PASSWORD_SERVICE_MAXIMUM_RETRY_LIMIT_ERROR",
                 payload: {},

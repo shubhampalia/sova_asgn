@@ -1,8 +1,8 @@
 import { CognitoUser } from "amazon-cognito-identity-js";
-import { AWSCognitoConnector } from "../../../../utilities/connectors";
+import { AWSCognitoConnector } from "../../../../utilities/src/connectors";
 
-import { sanitizeEmail } from "../../../../utilities/helpers/sanitize-payload-helper";
-import { isValidEmail } from "../../../../utilities/helpers/validate-payload-helper";
+import { sanitizeEmail } from "../../../../utilities/src/helpers/sanitize-payload-helper";
+import { isValidEmail } from "../../../../utilities/src/helpers/validate-payload-helper";
 
 export const forgotPasswordService = async (request, h) => {
   const forgotPasswordServicePromise = new Promise((resolve) => {

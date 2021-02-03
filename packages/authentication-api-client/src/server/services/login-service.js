@@ -4,10 +4,10 @@ import { AuthenticationDetails, CognitoUser } from "amazon-cognito-identity-js";
 import {
   sanitizeEmail,
   sanitizePassword,
-} from "../../../../utilities/helpers/sanitize-payload-helper";
-import { isValidEmail } from "../../../../utilities/helpers/validate-payload-helper";
+} from "../../../../utilities/src/helpers/sanitize-payload-helper";
+import { isValidEmail } from "../../../../utilities/src/helpers/validate-payload-helper";
 
-import { AWSCognitoConnector } from "../../../../utilities/connectors";
+import { AWSCognitoConnector } from "../../../../utilities/src/connectors";
 
 export const logInService = async (request, h) => {
   const logInServicePromise = new Promise((resolve) => {

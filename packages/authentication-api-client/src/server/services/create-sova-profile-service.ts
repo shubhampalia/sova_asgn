@@ -2,10 +2,10 @@ import {
   generateSovaIdHelper,
   generateCustomerIdHelper,
   generateReferralCodeHelper,
-} from "../../../../utilities/helpers/generate-id-helper";
+} from "../../../../utilities/src/helpers/generate-id-helper";
 import { configs } from "../../../configs";
-import { dbInsert } from "../../../../utilities/database/insert-query";
-import { Profiles } from "../../../../utilities/database/table-interfaces";
+import { dbInsert } from "../../../../utilities/src/database/insert-query";
+import { Profiles } from "../../../../utilities/src/database/table-interfaces";
 
 const { PROFILES_TABLE } = configs.services.aws.rds.tables;
 
@@ -35,7 +35,7 @@ export const createSovaProfileService = async ({
         promotion_code: promotionCode,
       };
 
-      const dbInsertResponse = await dbInsert({
+      const dbInsertResponse: any = await dbInsert({
         table_name: PROFILES_TABLE,
         data,
       });

@@ -1,13 +1,17 @@
 {
+  "extends": "./tsconfig.build.json",
+
   "compilerOptions": {
-    "module": "CommonJS",
-    "composite": true,
-    "target": "ES2018",
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "declaration": true
-  },
-  "exclude": ["**/node_modules/**"]
+    "module": "commonjs",
+    "allowJs": true,
+    "esModuleInterop": true,
+    "baseUrl": "./packages",
+    "paths": {
+      "@sovahealth/admin-dashboard": ["admin-dashboard/src"],
+      "@sovahealth/authentication-api-client": [
+        "authentication-api-client/src"
+      ],
+      "@sovahealth/utilities": ["utilities/src"]
+    }
+  }
 }

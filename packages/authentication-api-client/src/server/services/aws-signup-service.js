@@ -1,4 +1,4 @@
-import { AWSCognitoConnector } from "../../../../utilities/connectors";
+import { AWSCognitoConnector } from "../../../../utilities/src/connectors";
 
 import { configs } from "../../../configs";
 

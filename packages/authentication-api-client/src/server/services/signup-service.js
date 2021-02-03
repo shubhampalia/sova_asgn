@@ -1,5 +1,5 @@
 import AWSSignUpService from "./aws-signup-service";
-import createSovaProfileService from "create-sova-profile-service";
+import createSovaProfileService from "./create-sova-profile-service";
 
 import {
   sanitizeEmail,
@@ -7,14 +7,14 @@ import {
   sanitizePhone,
   sanitizeCity,
   sanitizePromotionCode,
-} from "../../../../utilities/helpers/sanitize-payload-helper";
+} from "../../../../utilities/src/helpers/sanitize-payload-helper";
 import {
   isValidEmail,
   isValidPassword,
   isValidName,
   isValidPhone,
   isValidCity,
-} from "../../../../utilities/helpers/validate-payload-helper";
+} from "../../../../utilities/src/helpers/validate-payload-helper";
 
 export const signUpService = async (request, h) => {
   const signUpServicePromise = new Promise(async (resolve) => {

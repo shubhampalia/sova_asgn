@@ -23,7 +23,6 @@ const startServer = async () => {
   await server.start();
 
   console.log("Server started");
-  console.log(process.env);
 };
 
 process.on("unhandledRejection", (error) => {
