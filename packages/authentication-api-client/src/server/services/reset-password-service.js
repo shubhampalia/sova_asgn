@@ -1,6 +1,7 @@
 import { CognitoUser } from "amazon-cognito-identity-js";
 import { AWSCognitoConnector } from "../../../../utilities/src/connectors";
 
+import { configs } from "../../../../utilities/src/configs";
 import {
   sanitizeEmail,
   sanitizeOTP,
@@ -9,6 +10,20 @@ import {
   isValidEmail,
   isValidPassword,
 } from "../../../../utilities/src/helpers/validate-payload-helper";
+
+const {
+  InvalidParameterException,
+  CodeMismatchException,
+  ExpiredCodeException,
+  LimitExceededException,
+  RESET_PASSWORD_PAYLOAD_VALIDATION_ERROR,
+  COGNITO_RESET_PASSWORD_ERROR,
+  RESET_PASSWORD_SERVICE_INVALID_PAYLOAD_ERROR,
+  RESET_PASSWORD_SERVICE_INCORRECT_OTP_ERROR,
+  RESET_PASSWORD_SERVICE_EXPIRED_OTP_ERROR,
+  RESET_PASSWORD_SERVICE_MAXIMUM_RETRY_LIMIT_ERROR,
+  RESET_PASSWORD_ERROR,
+} = configs.errors.authentication;
 
 export const resetPasswordService = async (request, h) => {
   const resetPasswordPromise = new Promise((resolve) => {
@@ -22,7 +37,7 @@ export const resetPasswordService = async (request, h) => {
         )
       ) {
         return {
-          error: "RESET_PASSWORD_PAYLOAD_VALIDATION_ERROR",
+          error: RESET_PASSWORD_PAYLOAD_VALIDATION_ERROR,
           payload: {},
         };
       }
@@ -37,7 +52,7 @@ export const resetPasswordService = async (request, h) => {
 
       if (!(sanitizedEmail && sanitizedOTP)) {
         return {
-          error: "RESET_PASSWORD_PAYLOAD_VALIDATION_ERROR",
+          error: RESET_PASSWORD_PAYLOAD_VALIDATION_ERROR,
           payload: {},
         };
       }
@@ -56,7 +71,7 @@ export const resetPasswordService = async (request, h) => {
 
       if (errors.status) {
         return {
-          error: "RESET_PASSWORD_PAYLOAD_VALIDATION_ERROR",
+          error: RESET_PASSWORD_PAYLOAD_VALIDATION_ERROR,
           payload: {
             ...errors,
             message: "Please enter valid details for the highlighted fields.",
@@ -76,47 +91,47 @@ export const resetPasswordService = async (request, h) => {
           resolve({ error: false, payload: {} });
         },
         onFailure: (resetPasswordError) => {
-          console.log("COGNITO_RESET_PASSWORD_ERROR", resetPasswordError);
+          console.log(COGNITO_RESET_PASSWORD_ERROR, resetPasswordError);
           switch (resetPasswordError.code) {
-            case "InvalidParameterException": {
+            case InvalidParameterException: {
               resolve({
-                error: "RESET_PASSWORD_SERVICE_INVALID_PAYLOAD_ERROR",
+                error: RESET_PASSWORD_SERVICE_INVALID_PAYLOAD_ERROR,
                 payload: {},
               });
               break;
             }
-            case "CodeMismatchException": {
+            case CodeMismatchException: {
               resolve({
-                error: "RESET_PASSWORD_SERVICE_INCORRECT_OTP_ERROR",
+                error: RESET_PASSWORD_SERVICE_INCORRECT_OTP_ERROR,
                 payload: {},
               });
               break;
             }
-            case "ExpiredCodeException": {
+            case ExpiredCodeException: {
               resolve({
-                error: "RESET_PASSWORD_SERVICE_EXPIRED_OTP_ERROR",
+                error: RESET_PASSWORD_SERVICE_EXPIRED_OTP_ERROR,
                 payload: {},
               });
               break;
             }
-            case "LimitExceededException": {
+            case LimitExceededException: {
               resolve({
-                error: "RESET_PASSWORD_SERVICE_MAXIMUM_RETRY_LIMIT_ERROR",
+                error: RESET_PASSWORD_SERVICE_MAXIMUM_RETRY_LIMIT_ERROR,
                 payload: {},
               });
               break;
             }
             default: {
-              resolve({ error: "RESET_PASSWORD_SERVICE_ERROR", payload: {} });
+              resolve({ error: RESET_PASSWORD_ERROR, payload: {} });
               break;
             }
           }
         },
       });
     } catch (error) {
-      console.log("RESET_PASSWORD_SERVICE_ERROR", error);
+      console.log(RESET_PASSWORD_ERROR, error);
       return {
-        error: "RESET_PASSWORD_ERROR",
+        error: RESET_PASSWORD_ERROR,
         payload: {
           message: "Something went wrong. Please try again later.",
         },

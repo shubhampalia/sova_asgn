@@ -5,8 +5,6 @@ import {
   resetPasswordService,
 } from "../services";
 
-import { dbInsert } from "../../../../utilities/src/database/insert-query";
-
 export const routes = (server) => {
   server.route({
     method: "POST",
@@ -37,14 +35,6 @@ export const routes = (server) => {
     path: "/api/auth/reset-password",
     config: {
       handler: resetPasswordService,
-    },
-  });
-
-  server.route({
-    method: "GET",
-    path: "/api/auth/test",
-    config: {
-      handler: dbInsert,
     },
   });
 };

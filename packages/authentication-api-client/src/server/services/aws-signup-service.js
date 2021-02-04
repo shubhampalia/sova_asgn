@@ -1,12 +1,14 @@
 import { AWSCognitoConnector } from "../../../../utilities/src/connectors";
 
-import { configs } from "../../../configs";
+import { configs } from "../../../../utilities/src/configs";
 
 const {
   InvalidParameterException,
   UsernameExistsException,
   SIGNUP_SERVICE_INVALID_PAYLOAD_ERROR,
   SIGNUP_SERVICE_ACCOUNT_EXISTS_ERROR,
+  SIGNUP_SERVICE_ERROR,
+  COGNITO_SIGNUP_ERROR,
 } = configs.errors.authentication;
 
 export const AWSSignUpService = async ({ email, password }) => {
@@ -19,7 +21,7 @@ export const AWSSignUpService = async ({ email, password }) => {
         null,
         (signUpError, account) => {
           if (signUpError) {
-            console.log("COGNITO_SIGNUP_ERROR", signUpError);
+            console.log(COGNITO_SIGNUP_ERROR, signUpError);
             switch (signUpError.code) {
               case InvalidParameterException: {
                 resolve({
@@ -36,7 +38,7 @@ export const AWSSignUpService = async ({ email, password }) => {
                 break;
               }
               default: {
-                resolve({ error: "SIGNUP_SERVICE_ERROR", payload: {} });
+                resolve({ error: SIGNUP_SERVICE_ERROR, payload: {} });
               }
             }
           } else {
@@ -49,8 +51,8 @@ export const AWSSignUpService = async ({ email, password }) => {
         }
       );
     } catch (error) {
-      console.log("SIGNUP_SERVICE_ERROR", error);
-      resolve({ error: "SIGNUP_SERVICE_ERROR", payload: {} });
+      console.log(SIGNUP_SERVICE_ERROR, error);
+      resolve({ error: SIGNUP_SERVICE_ERROR, payload: {} });
     }
   });
 

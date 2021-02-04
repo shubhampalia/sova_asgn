@@ -3,11 +3,12 @@ import {
   generateCustomerIdHelper,
   generateReferralCodeHelper,
 } from "../../../../utilities/src/helpers/generate-id-helper";
-import { configs } from "../../../configs";
+import { configs } from "../../../../utilities/src/configs";
 import { dbInsert } from "../../../../utilities/src/database/insert-query";
 import { Profiles } from "../../../../utilities/src/database/table-interfaces";
 
 const { PROFILES_TABLE } = configs.services.aws.rds.tables;
+const { CREATE_SOVA_PROFILE_DATABASE_ERROR } = configs.errors.authentication;
 
 export const createSovaProfileService = async ({
   accountId,
@@ -22,7 +23,7 @@ export const createSovaProfileService = async ({
       const sovaId = generateSovaIdHelper();
       const customerId = generateCustomerIdHelper({ sovaId });
       const referralCode = generateReferralCodeHelper({ name });
-      // Make an interface or Typescript for each table - Typescript type definition
+
       const data: Profiles = {
         account_id: accountId,
         sova_id: sovaId,
@@ -41,12 +42,9 @@ export const createSovaProfileService = async ({
       });
 
       if (dbInsertResponse.error) {
-        console.log(
-          "CREATE_SOVA_PROFILE_DATABASE_ERROR",
-          dbInsertResponse.error
-        );
+        console.log(CREATE_SOVA_PROFILE_DATABASE_ERROR, dbInsertResponse.error);
         resolve({
-          error: "CREATE_SOVA_PROFILE_DATABASE_ERROR",
+          error: CREATE_SOVA_PROFILE_DATABASE_ERROR,
           payload: {},
         });
       } else {
@@ -65,8 +63,8 @@ export const createSovaProfileService = async ({
         });
       }
     } catch (error) {
-      console.log("CREATE_SOVA_PROFILE_SERVICE_ERROR", error);
-      resolve({ error: "CREATE_SOVA_PROFILE_SERVICE_ERROR", payload: {} });
+      console.log(CREATE_SOVA_PROFILE_DATABASE_ERROR, error);
+      resolve({ error: CREATE_SOVA_PROFILE_DATABASE_ERROR, payload: {} });
     }
   });
 

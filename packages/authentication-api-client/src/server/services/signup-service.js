@@ -1,6 +1,7 @@
 import AWSSignUpService from "./aws-signup-service";
 import createSovaProfileService from "./create-sova-profile-service";
 
+import { configs } from "../../../../utilities/src/configs";
 import {
   sanitizeEmail,
   sanitizeName,
@@ -16,6 +17,13 @@ import {
   isValidCity,
 } from "../../../../utilities/src/helpers/validate-payload-helper";
 
+const {
+  SIGNUP_PAYLOAD_VALIDATION_ERROR,
+  SIGNUP_SERVICE_INVALID_PAYLOAD_ERROR,
+  SIGNUP_SERVICE_ACCOUNT_EXISTS_ERROR,
+  SIGNUP_ERROR,
+} = configs.errors.authentication;
+
 export const signUpService = async (request, h) => {
   const signUpServicePromise = new Promise(async (resolve) => {
     try {
@@ -30,7 +38,7 @@ export const signUpService = async (request, h) => {
         )
       ) {
         return resolve({
-          error: "SIGNUP_PAYLOAD_VALIDATION_ERROR",
+          error: SIGNUP_PAYLOAD_VALIDATION_ERROR,
           payload: {},
         });
       }
@@ -53,7 +61,7 @@ export const signUpService = async (request, h) => {
         !(sanitizedEmail && sanitizedName && sanitizedPhone && sanitizedCity)
       ) {
         return resolve({
-          error: "SIGNUP_PAYLOAD_VALIDATION_ERROR",
+          error: SIGNUP_PAYLOAD_VALIDATION_ERROR,
           payload: {},
         });
       }
@@ -85,7 +93,7 @@ export const signUpService = async (request, h) => {
 
       if (errors.status) {
         return resolve({
-          error: "SIGNUP_PAYLOAD_VALIDATION_ERROR",
+          error: SIGNUP_PAYLOAD_VALIDATION_ERROR,
           payload: {
             ...errors,
             message: "Please enter valid details for the highlighted fields.",
@@ -100,17 +108,17 @@ export const signUpService = async (request, h) => {
 
       if (userAccount.error) {
         switch (userAccount.error) {
-          case "SIGNUP_SERVICE_INVALID_PAYLOAD_ERROR": {
+          case SIGNUP_SERVICE_INVALID_PAYLOAD_ERROR: {
             return resolve({
-              error: "INVALID_PAYLOAD_ERROR",
+              error: SIGNUP_SERVICE_INVALID_PAYLOAD_ERROR,
               payload: {
                 message: "Please enter valid email and password.",
               },
             });
           }
-          case "SIGNUP_SERVICE_ACCOUNT_EXISTS_ERROR": {
+          case SIGNUP_SERVICE_ACCOUNT_EXISTS_ERROR: {
             return resolve({
-              error: "ACCOUNT_EXISTS_ERROR",
+              error: SIGNUP_SERVICE_ACCOUNT_EXISTS_ERROR,
               payload: {
                 message:
                   "This email address is already registered with Sova. Please try to log in or recover your password.",
@@ -119,7 +127,7 @@ export const signUpService = async (request, h) => {
           }
           default: {
             return resolve({
-              error: "SIGNUP_ERROR",
+              error: SIGNUP_ERROR,
               payload: {
                 message: "Something went wrong. Please try again later.",
               },
@@ -139,7 +147,7 @@ export const signUpService = async (request, h) => {
 
       if (userProfile.error) {
         return resolve({
-          error: "SIGNUP_ERROR",
+          error: SIGNUP_ERROR,
           payload: {
             message: "Something went wrong. Please try again later.",
           },
@@ -151,9 +159,9 @@ export const signUpService = async (request, h) => {
         payload: {},
       });
     } catch (error) {
-      console.log("SIGNUP_SERVICE_ERROR", error);
+      console.log(SIGNUP_ERROR, error);
       return resolve({
-        error: "SIGNUP_ERROR",
+        error: SIGNUP_ERROR,
         payload: {
           message: "Something went wrong. Please try again later.",
         },

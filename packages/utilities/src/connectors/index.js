@@ -1,4 +1,3 @@
-import MYSQL from "mysql";
 import AWS from "aws-sdk";
 import { CognitoUserPool } from "amazon-cognito-identity-js";
 // import { configs } from "../configs";

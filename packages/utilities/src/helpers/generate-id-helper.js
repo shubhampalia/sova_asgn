@@ -13,11 +13,25 @@ const {
   NUTRIENT_ID_LENGTH,
 } = configs.constants;
 
+const {
+  GENERATE_SOVA_ID_HELPER_ERROR,
+  GENERATE_CUSTOMER_ID_HELPER_ERROR,
+  GENERATE_REFERRAL_CODE_HELPER_ERROR,
+  GENERATE_ORDER_REFERENCE_ID_HELPER_ERROR,
+  GENERATE_JOURNEY_ID_HELPER_ERROR,
+  GENERATE_BIOMARKER_ID_HELPER_ERROR,
+  GENERATE_BIOMARKER_PROFILE_ID_HELPER_ERROR,
+  GENERATE_BIOMARKER_REPORT_ID_HELPER_ERROR,
+  GENERATE_PROGRAM_ID_HELPER_ERROR,
+  GENERATE_QUESTIONNAIRE_ID_HELPER_ERROR,
+  GENERATE_TEST_SCHEDULE_ID_HELPER_ERROR,
+} = configs.errors.helpers;
+
 export const generateSovaIdHelper = () => {
   try {
     return UUID();
   } catch (error) {
-    console.log("GENERATE_SOVA_ID_HELPER_ERROR", error);
+    console.log(GENERATE_SOVA_ID_HELPER_ERROR, error);
     return "";
   }
 };
@@ -27,7 +41,7 @@ export const generateCustomerIdHelper = ({ sovaId }) => {
     const customerId = Crypto.MD5(sovaId).toString();
     return `CID_${customerId}`;
   } catch (error) {
-    console.log("GENERATE_CUSTOMER_ID_HELPER_ERROR", error);
+    console.log(GENERATE_CUSTOMER_ID_HELPER_ERROR, error);
     return "";
   }
 };
@@ -50,7 +64,7 @@ export const generateReferralCodeHelper = ({ name }) => {
 
     return referralCode;
   } catch (error) {
-    console.log("GENERATE_REFERRAL_CODE_HELPER_ERROR", error);
+    console.log(GENERATE_REFERRAL_CODE_HELPER_ERROR, error);
     return "";
   }
 };
@@ -59,7 +73,7 @@ export const generateOrderReferenceIdHelper = () => {
   try {
     return UUID();
   } catch (error) {
-    console.log("GENERATE_ORDER_REFERENCE_ID_HELPER_ERROR", error);
+    console.log(GENERATE_ORDER_REFERENCE_ID_HELPER_ERROR, error);
     return "";
   }
 };
@@ -69,7 +83,7 @@ export const generateJourneyIdHelper = ({ orderId }) => {
     const journeyId = Crypto.MD5(orderId).toString();
     return `JID_${journeyId}`;
   } catch (error) {
-    console.log("GENERATE_JOURNEY_ID_HELPER_ERROR", error);
+    console.log(GENERATE_JOURNEY_ID_HELPER_ERROR, error);
     return "";
   }
 };
@@ -82,7 +96,7 @@ export const generateBiomarkerIdHelper = () => {
     )();
     return `BM_${biomarkerId}`;
   } catch (error) {
-    console.log("GENERATE_BIOMARKER_ID_HELPER_ERROR", error);
+    console.log(GENERATE_BIOMARKER_ID_HELPER_ERROR, error);
     return "";
   }
 };
@@ -95,7 +109,7 @@ export const generateBiomarkerProfileIdHelper = () => {
     )();
     return `BMP_${biomarkerProfileId}`;
   } catch (error) {
-    console.log("GENERATE_BIOMARKER_PROFILE_ID_HELPER_ERROR", error);
+    console.log(GENERATE_BIOMARKER_PROFILE_ID_HELPER_ERROR, error);
     return "";
   }
 };
@@ -111,7 +125,7 @@ export const generateBiomarkerReportIdHelper = ({
     ).toString();
     return `RID_${reportId}`;
   } catch (error) {
-    console.log("GENERATE_BIOMARKER_REPORT_ID_HELPER_ERROR", error);
+    console.log(GENERATE_BIOMARKER_REPORT_ID_HELPER_ERROR, error);
     return "";
   }
 };
@@ -120,7 +134,7 @@ export const generateProgramIdHelper = () => {
   try {
     return UUID();
   } catch (error) {
-    console.log("GENERATE_PROGRAM_ID_HELPER_ERROR", error);
+    console.log(GENERATE_PROGRAM_ID_HELPER_ERROR, error);
     return "";
   }
 };
@@ -130,7 +144,7 @@ export const generateFoodIdHelper = () => {
     const foodID = customAlphabet(VALID_ID_CHARACTERS, FOOD_ID_LENGTH)();
     return `FID_${foodID}`;
   } catch (error) {
-    console.log("GENERATE_BIOMARKER_PROFILE_ID_HELPER_ERROR", error);
+    console.log(GENERATE_BIOMARKER_PROFILE_ID_HELPER_ERROR, error);
     return "";
   }
 };
@@ -143,7 +157,7 @@ export const generateNutrientIdHelper = () => {
     )();
     return `NID_${nutrientId}`;
   } catch (error) {
-    console.log("GENERATE_BIOMARKER_PROFILE_ID_HELPER_ERROR", error);
+    console.log(GENERATE_BIOMARKER_PROFILE_ID_HELPER_ERROR, error);
     return "";
   }
 };
@@ -152,7 +166,7 @@ export const generateQuestionnaireIdHelper = () => {
   try {
     return UUID();
   } catch (error) {
-    console.log("GENERATE_QUESTIONNAIRE_ID_HELPER_ERROR", error);
+    console.log(GENERATE_QUESTIONNAIRE_ID_HELPER_ERROR, error);
     return "";
   }
 };
@@ -161,7 +175,7 @@ export const generateTestScheduleIdHelper = () => {
   try {
     return UUID();
   } catch (error) {
-    console.log("GENERATE_TEST_SCHEDULE_ID_HELPER_ERROR", error);
+    console.log(GENERATE_TEST_SCHEDULE_ID_HELPER_ERROR, error);
     return "";
   }
 };

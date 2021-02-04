@@ -38,9 +38,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createSovaProfileService = void 0;
 var generate_id_helper_1 = require("../../../../utilities/src/helpers/generate-id-helper");
-var configs_1 = require("../../../configs");
+var configs_1 = require("../../../../utilities/src/configs");
 var insert_query_1 = require("../../../../utilities/src/database/insert-query");
 var PROFILES_TABLE = configs_1.configs.services.aws.rds.tables.PROFILES_TABLE;
+var CREATE_SOVA_PROFILE_DATABASE_ERROR = configs_1.configs.errors.authentication.CREATE_SOVA_PROFILE_DATABASE_ERROR;
 var createSovaProfileService = function (_a) {
     var accountId = _a.accountId, name = _a.name, email = _a.email, phone = _a.phone, city = _a.city, promotionCode = _a.promotionCode;
     return __awaiter(void 0, void 0, void 0, function () {
@@ -75,9 +76,9 @@ var createSovaProfileService = function (_a) {
                                 case 1:
                                     dbInsertResponse = _a.sent();
                                     if (dbInsertResponse.error) {
-                                        console.log("CREATE_SOVA_PROFILE_DATABASE_ERROR", dbInsertResponse.error);
+                                        console.log(CREATE_SOVA_PROFILE_DATABASE_ERROR, dbInsertResponse.error);
                                         resolve({
-                                            error: "CREATE_SOVA_PROFILE_DATABASE_ERROR",
+                                            error: CREATE_SOVA_PROFILE_DATABASE_ERROR,
                                             payload: {},
                                         });
                                     }
@@ -99,8 +100,8 @@ var createSovaProfileService = function (_a) {
                                     return [3 /*break*/, 3];
                                 case 2:
                                     error_1 = _a.sent();
-                                    console.log("CREATE_SOVA_PROFILE_SERVICE_ERROR", error_1);
-                                    resolve({ error: "CREATE_SOVA_PROFILE_SERVICE_ERROR", payload: {} });
+                                    console.log(CREATE_SOVA_PROFILE_DATABASE_ERROR, error_1);
+                                    resolve({ error: CREATE_SOVA_PROFILE_DATABASE_ERROR, payload: {} });
                                     return [3 /*break*/, 3];
                                 case 3: return [2 /*return*/];
                             }
